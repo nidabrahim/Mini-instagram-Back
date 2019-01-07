@@ -1,17 +1,17 @@
-import Mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-const Schema = Mongoose.Schema;
+const Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
   title: String,
   description: String,
   img: {
-    rel: String,
-    href: String,
+    rel: { type: String, default: "" },
+    href: { type: String, default: "" },
   },
 });
 
-PostSchema.index({ name: 1});
-let Post = Mongoose.model('Post', PostSchema);
+PostSchema.index({ title: 1});
+let Post = mongoose.model('Post', PostSchema);
 
 export default Post;

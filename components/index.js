@@ -1,6 +1,6 @@
 import express from "express";
 import post from "./post/routes";
-import post2 from "./post2/routes";
+import user from "./user/routes";
 import multer from "multer";
 import { postImg, getImg } from "./storage";
 
@@ -18,8 +18,8 @@ const type = upload.single("photo");
 
 const routes = express.Router();
 
-//routes.use("/api/v1/", post);
-routes.use("/api/v2/", post2);
+routes.use("/api/", post);
+routes.use("/api/", user);
 routes.get("/zz", getImg);
 routes.post("/zz", type, postImg);
 

@@ -1,5 +1,5 @@
 import db from "../../db/db";
-
+import services from "./services";
 
 exports.post = (req, res) => {
   if (!req.body.title) {
@@ -11,19 +11,18 @@ exports.post = (req, res) => {
       message: "description is required"
     });
   }
-  const post = {
-    id: db.length + 1,
-    title: req.body.title,
-    description: req.body.description
-  };
-  db.push(post);
-  return res.status(201).send({
-    post
-  });
+  services.createPost(req.body).then(
+    post => res.status(200).json(post),
+    err => {
+      res.status(500).send("error");
+      return;
+    }
+  );
 };
 
-exports.list = (req, res) => {
+exports.list = async (req, res) => {
+  const list  = await services.list()
   res.status(200).send({
-    posts: db
+    posts: list
   });
 };
