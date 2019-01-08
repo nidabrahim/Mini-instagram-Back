@@ -17,8 +17,8 @@ db.once("open", function() {
 
 const app = express()
 
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(MyLogger)
 
 app.use("/", Routes)

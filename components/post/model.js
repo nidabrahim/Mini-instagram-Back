@@ -9,6 +9,10 @@ var PostSchema = new Schema({
     rel: { type: String, default: "" },
     href: { type: String, default: "" },
   },
+  author: {
+    name: String,
+    ref: { type: Schema.Types.ObjectId, ref: "User" },
+  }
 });
 
 PostSchema.index({ title: 1});
