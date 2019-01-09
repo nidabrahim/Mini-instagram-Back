@@ -3,6 +3,7 @@ require ('custom-env').env('db')
 import express from 'express'
 import bodyParser from "body-parser"
 import MyLogger from "./middleWare/myLogger"
+import Cors from "./middleWare/cors"
 import Routes from "./components"
 import mongoose from "mongoose"
 
@@ -17,9 +18,11 @@ db.once("open", function() {
 
 const app = express()
 
+app.use(Cors)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(MyLogger)
+
 
 app.use("/", Routes)
 
