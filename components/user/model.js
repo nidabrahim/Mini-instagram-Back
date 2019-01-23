@@ -8,7 +8,9 @@ var UserSchema = new Schema({
     type: String,
     index: true,
     unique: true
-  }
+  },
+  email: String,
+  password: String
 });
 
 UserSchema.index({ name: 1});

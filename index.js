@@ -1,5 +1,6 @@
 require ('custom-env').env('staging')
 require ('custom-env').env('db')
+require ('custom-env').env('jwt')
 import express from 'express'
 import bodyParser from "body-parser"
 import MyLogger from "./middleWare/myLogger"

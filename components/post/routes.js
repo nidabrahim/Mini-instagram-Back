@@ -1,4 +1,4 @@
-import Post from "./controller";
+import * as Post from "./controller";
 import express from "express";
 import bodyParser from "body-parser"
 

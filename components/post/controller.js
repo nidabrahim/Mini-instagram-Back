@@ -1,16 +1,16 @@
 import db from "../../db/db";
 import services from "./services";
 
-exports.post = (req, res) => {
-  if (!req.body.title) {
-    return res.status(400).send({
-      message: "title is required "+req.body.title
-    });
-  } else if (!req.body.description) {
-    return res.status(400).send({
-      message: "description is required"
-    });
-  }
+export function post(req, res){
+  // if (!req.body.title) {
+  //   return res.status(400).send({
+  //     message: "title is required "+req.body.title
+  //   });
+  // } else if (!req.body.description) {
+  //   return res.status(400).send({
+  //     message: "description is required"
+  //   });
+  // }
   services.createPost(req.body).then(
     post => res.status(200).json(post),
     err => {
@@ -20,14 +20,14 @@ exports.post = (req, res) => {
   );
 };
 
-exports.list = async (req, res) => {
+export async function list(req, res){
   const list  = await services.list()
   res.status(200).send({
     posts: list
   });
 };
 
-exports.listByPage = async (req, res) => {
+export async function listByPage(req, res){
   const list  = await services.listByPage(req.query.page || 1, req.query.per_page || 10)
   res.status(200).send({
     posts: list
