@@ -23,17 +23,20 @@ export async function  list(req, res){
     });
 };
 
-export function login(req, res){
+export async function login(req, res){
     let { email, password } = req.body;
-    if (services.checkUser(email, password) != null) {
-        
+    const user = await services.checkUser(email, password);
+     console.log(user);
+    if (user != null) {
       res.status(200).json({
         success: true,
         token: createJWToken({
           sessionData: { name: "toto", age: 15 },
           maxAge: 3600
-        })
+        }),
+        user:user.id
       });
+
     } else {
       res.status(401).json({
         message: "Login ou mot de passe incorrecte."

@@ -18,7 +18,7 @@ export async function createUser(user) {
 }
 
 export async function checkUser(email, pwd) {
-    let result = await User.find({email:email,password: pwd});
+    let result = await User.findOne({email:email,password: pwd});
     return result;
 }
   
