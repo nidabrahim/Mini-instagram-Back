@@ -16,11 +16,19 @@ export function post(req, res){
     );
 };
 
-export async function  list(req, res){
+export async function list(req, res){
     const list  = await services.listByPage(req.query.page || 1, req.query.per_page || 10)
     res.status(200).send({
         users: list
     });
+};
+
+export async function getUserById(req, res){
+  //var id = req.params.id;  
+  const user  = await services.getUser(req.query.id)
+  res.status(200).send({
+      user: user
+  });
 };
 
 export async function login(req, res){
