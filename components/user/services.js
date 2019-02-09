@@ -18,10 +18,7 @@ export async function createUser(user) {
 }
 
 export async function getUser(id) {
-  // var ObjectId = require('mongodb').ObjectId; 
-  // var o_id = new ObjectId(id);
   let result = await User.findOne({_id:id});
-  console.log(result);
   return result;
 }
 

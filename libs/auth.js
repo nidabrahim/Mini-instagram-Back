@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import _ from "lodash";
+//import User from "./../components/user/model";
+import * as services from "./../components/user/services";
+
 
 export async function verifyJWTToken(token) {
     try {
@@ -8,7 +11,17 @@ export async function verifyJWTToken(token) {
       if (!decodedToken) {
         throw new err();
       }
-      return decodedToken;
+
+      var userId = decodedToken.data._doc._id;
+      const user  = await services.getUser(userId);
+      
+      return user;
+
+      // User.findOne({_id: userId}).then(function(user){
+      //   return user;
+      // });
+
+      //return decodedToken;
     } catch (err) {
       throw new err();
     }

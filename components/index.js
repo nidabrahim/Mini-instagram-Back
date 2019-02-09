@@ -23,7 +23,7 @@ const routes = express.Router();
 routes.post("/api/login", login);
 routes.post("/api/signup", signup);
 
-routes.use('/api/', verifyJWT_MW); 
+routes.use('/api/', verifyJWT_MW);
 
 routes.use("/api/", post);
 routes.use("/api/", user);

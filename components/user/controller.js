@@ -23,6 +23,13 @@ export async function list(req, res){
     });
 };
 
+export async function me(req, res){
+  console.log(req.user);
+  res.status(200).send({
+      user: req.user
+  });
+};
+
 export async function getUserById(req, res){
   //var id = req.params.id;  
   const user  = await services.getUser(req.query.id)
@@ -34,15 +41,15 @@ export async function getUserById(req, res){
 export async function login(req, res){
     let { email, password } = req.body;
     const user = await services.checkUser(email, password);
-     console.log(user);
+    console.log(user);
     if (user != null) {
       res.status(200).json({
         success: true,
         token: createJWToken({
-          sessionData: { name: "toto", age: 15 },
+          sessionData: user,
           maxAge: 3600
         }),
-        user:user.id
+        user:user
       });
 
     } else {

@@ -4,8 +4,9 @@ export function verifyJWT_MW(req, res, next) {
 
   let token = req.headers.authorization;
   verifyJWTToken(token)
-    .then(decodedToken => {
-      req.user = decodedToken.data;
+    .then(user => {
+      req.user = user;
+      //console.log(req.user)
       next();
     })
     .catch(err => {
