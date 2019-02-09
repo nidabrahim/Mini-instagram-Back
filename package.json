@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/redaBenchraa/InstaBack#readme",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "custom-env": "^1.0.0",
     "express": "^4.16.4",
