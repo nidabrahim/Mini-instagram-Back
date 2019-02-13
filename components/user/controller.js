@@ -1,4 +1,5 @@
 import * as services from "./services";
+import {postsByUser} from "./../post/services";
 import {createJWToken} from "./../../libs/auth";
 
 export function post(req, res){
@@ -16,6 +17,13 @@ export function post(req, res){
     );
 };
 
+export async function posts(req, res){
+  const list = await postsByUser(req.params.id)
+  res.status(200).send({
+      posts: list
+  });
+};
+
 export async function list(req, res){
     const list  = await services.listByPage(req.query.page || 1, req.query.per_page || 10)
     res.status(200).send({
@@ -24,7 +32,7 @@ export async function list(req, res){
 };
 
 export async function me(req, res){
-  console.log(req.user);
+ // console.log(req.user);
   res.status(200).send({
       user: req.user
   });
@@ -41,7 +49,7 @@ export async function getUserById(req, res){
 export async function login(req, res){
     let { email, password } = req.body;
     const user = await services.checkUser(email, password);
-    console.log(user);
+   // console.log(user);
     if (user != null) {
       res.status(200).json({
         success: true,

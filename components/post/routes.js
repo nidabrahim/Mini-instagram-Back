@@ -7,7 +7,8 @@ routes.use(bodyParser.json());
 
 
 routes.route("/posts").get(Post.list);
+routes.route("/posts/public").get(Post.listPublicPosts);
 routes.route("/postsByPage").get(Post.listByPage);
-routes.route("/posts").post(Post.post);
+routes.route("/post/add").post(Post.post);
 
 export default routes;

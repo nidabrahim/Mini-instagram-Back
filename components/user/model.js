@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Post from "./../post/model";
 
 const Schema = mongoose.Schema;
 
@@ -10,7 +11,12 @@ var UserSchema = new Schema({
     unique: true
   },
   email: String,
-  password: String
+  password: String,
+  posts: [Post.schema]
+  // posts: [{ 
+  //   type: Schema.Types.ObjectId, 
+  //   ref: 'Post' 
+  // }]
 });
 
 UserSchema.index({ name: 1});

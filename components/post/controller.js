@@ -1,5 +1,5 @@
 import db from "../../db/db";
-import services from "./services";
+import * as services from "./services";
 
 export function post(req, res){
   // if (!req.body.title) {
@@ -22,6 +22,13 @@ export function post(req, res){
 
 export async function list(req, res){
   const list  = await services.list()
+  res.status(200).send({
+    posts: list
+  });
+};
+
+export async function listPublicPosts(req, res){
+  const list  = await services.publicPosts()
   res.status(200).send({
     posts: list
   });
