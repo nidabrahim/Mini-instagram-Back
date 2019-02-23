@@ -15,13 +15,11 @@ export async function createPost(post) {
           return newPost;
         })
         .catch(err => {
-          res.status(400).json({ message: "Find User error" });
-      
+          console.log("Find User error");
         });
       })
       .catch(err => {
-        res.status(400).json({ message: "Add post error" });
-    
+        console.log("Add post error");
       });
 
       
@@ -35,7 +33,12 @@ export async function list() {
 }
 
 export async function publicPosts() {
-  let result = await Post.find({hidden:false});
+  let result = await Post.find({hidden:false})
+  .populate([{
+    path: "comments",
+    model: "Comment",
+  }]);
+  
   return result;
 }
 
@@ -57,6 +60,54 @@ export async function postsByUser(id) {
   let result = await Post.find({'author.ref':id});
   //console.log(result);
   return result;
+}
+
+export async function createComment(postId,comment) {
+  if (comment) {
+    const post = await Post.findOne({_id:postId});
+    if(post){
+      post.comments.push(comment);
+      post.save();
+      console.log(post);
+    }
+    return post;
+      // .then(function(post){
+      //   post.comments.push(comment);
+      //   post.save();
+      //   console.log(post);
+      //   return post;
+      // })
+      // .catch(err => {
+      //   res.status(400).json({ message: "Find Post error" });
+      // });
+  }
+}
+
+export async function updateLikes(postId,post) {
+  if (post) {
+      const _post = await Post.findByIdAndUpdate({_id:postId},post,{new: true});
+      // .catch(err => {
+      //   console.log("Update Post likes error");
+      // });
+       return _post;
+      // .then(function(post){
+      //   //console.log(post);
+      //   return post;
+      // })
+      // .catch(err => {
+      //   console.log("Update Post likes error");
+      // });
+  }
+}
+
+export async function getPost(id) {
+    let result = await Post.findOne({_id:id})
+    .populate([{
+      path: "comments",
+      model: "Comment",
+    }]);
+    
+    return result;
 }
 
 

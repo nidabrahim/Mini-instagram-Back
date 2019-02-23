@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 import User from "./model";
+import Post from "../post/model";
 
 export async function listByPage(page, per_page) {
       var start = (parseInt(page) - 1) * parseInt(per_page);
@@ -23,15 +24,25 @@ export async function createUser(user) {
 }
 
 export async function getUser(id) {
-  let result = await User.findOne({_id:id})//.populate('posts');
-    .populate([{
-    path: "posts",
-    model: "Post"
-  }]);
-//   User.findOne({_id:id}).populate('posts').exec(function (err, user) {
-//     console.log(user);
-//     return user;
-// });
+  let result = await User.findOne({_id:id})
+    .populate({
+      path: "posts",
+      model: "Post",
+      populate: { path: "comments", model: "Comment"}
+    });
+    console.log(result);
+    // , function (err, docs) {
+    //   console.log(docs);
+    //   Post.populate(docs, [{
+    //     path: "posts.comments",
+    //     model: "Comment"
+    //   }]);
+    // });
+    // .populate([{
+    //   path: "posts.comments",
+    //   model: "Comment"
+    // }]);
+
   return result;
 }
 

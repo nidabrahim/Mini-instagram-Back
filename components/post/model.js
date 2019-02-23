@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Comment from './../comment/model';
 
 const Schema = mongoose.Schema;
 
@@ -11,17 +12,8 @@ var PostSchema = new Schema({
     type: Number,
     default: 0
   },
-  comments: [{ 
-    body: String, 
-    date: { 
-      type: Date, 
-      default: Date.now 
-    } 
-  }],
-  img: {
-    rel: { type: String, default: "" },
-    href: { type: String, default: "" },
-  },
+  comments: [Comment.schema],
+  img: String,
   author: {
     name: String,
     ref: { 
