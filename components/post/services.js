@@ -68,7 +68,18 @@ export async function createComment(postId,comment) {
     if(post){
       post.comments.push(comment);
       post.save();
-      console.log(post);
+      const user = await User.findOne({_id:post.author._id});
+      if(user){
+        user.posts.map(item => {
+          if(item._id == post._id){
+            //item = post;
+            item.comments.push(comment);
+            item.save();
+          }
+        });
+        user.save();
+        console.log(user);
+      }
     }
     return post;
       // .then(function(post){
@@ -81,15 +92,39 @@ export async function createComment(postId,comment) {
       //   res.status(400).json({ message: "Find Post error" });
       // });
   }
+  
 }
 
 export async function updateLikes(postId,post) {
   if (post) {
-      const _post = await Post.findByIdAndUpdate({_id:postId},post,{new: true});
+      //const _post = await Post.findByIdAndUpdate({_id:postId},post,{new: true});
       // .catch(err => {
       //   console.log("Update Post likes error");
       // });
-       return _post;
+      // return _post;
+
+     const _post = await Post.findOneAndUpdate({_id:postId},post,{new: true});
+     if(_post){
+        const user = await User.findOne({name:_post.author.name});
+        if(user){
+          user.posts.map(item => {
+            console.log("cmp : ", item._id.equals(_post._id));
+            if(item._id == _post._id){
+              //console.log("item : ",item._id, " | post : ",_post._id);
+              //item = post;
+              item.likes = _post.likes;
+              //item.save();
+              
+            }
+            return item;
+            
+          });
+          user.save();
+          //console.log(user);
+        }
+     }
+     return _post;
+        
       // .then(function(post){
       //   //console.log(post);
       //   return post;

@@ -9,5 +9,7 @@ routes.route("/userid").post(User.getUserById);
 routes.route("/user").post(User.post);
 routes.route("/user/:id/posts").get(User.posts);
 
+routes.route("/user/:id/update").post(User.update);
+
 
 export default routes;

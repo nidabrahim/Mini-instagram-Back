@@ -24,13 +24,19 @@ export async function createUser(user) {
 }
 
 export async function getUser(id) {
-  let result = await User.findOne({_id:id})
+  let user = await User.findOne({_id:id})
     .populate({
       path: "posts",
       model: "Post",
-      populate: { path: "comments", model: "Comment"}
+      //populate: { path: "comments", model: "Comment"}
     });
-    console.log(result);
+    // user.posts.forEach(element => {
+    //   element.populate({
+    //     path: "comments", 
+    //     model: "Comment"
+    //   })
+    // });
+   // console.log(user);
     // , function (err, docs) {
     //   console.log(docs);
     //   Post.populate(docs, [{
@@ -43,7 +49,7 @@ export async function getUser(id) {
     //   model: "Comment"
     // }]);
 
-  return result;
+  return user;
 }
 
 export async function checkUser(email, pwd) {
@@ -55,4 +61,11 @@ export async function checkUser(email, pwd) {
   }
   return null;
 }
-  
+
+
+export async function updateUser(id, newUser) {
+  if (newUser) {
+    console.log("New user : ", newUser);
+    return User.findOneAndUpdate({_id:id}, newUser);
+  }
+}

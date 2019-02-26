@@ -77,6 +77,21 @@ export function signup(req, res){
   );
 };
 
+export function update(req, res){
+  // if (!req.body.name) {
+  //     return res.status(400).send({
+  //       message: "name is required"
+  //     });
+  // }
+  services.updateUser(req.params.id, req.body).then(
+    user => res.status(200).json(user),
+    err => {
+      res.status(500).send("error");
+      return;
+    }
+  );
+};
+
 
 
 

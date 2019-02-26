@@ -5,12 +5,14 @@ const Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   name: String,
+  secondname: String,
   pseudo: {
     type: String,
     index: true,
     unique: true
   },
   email: String,
+  description: String,
   password: String,
   posts: [Post.schema]
   // posts: [{ 
