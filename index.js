@@ -13,7 +13,9 @@ var connectionString = '';
 if( process.env.NODE_ENV != 'production'){
     connectionString = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 }else{
-    connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + "db";
+    console.log("DB_URL : " + process.env.OPENSHIFT_MONGODB_DB_URL);
+    console.log("APP_NAME : " + process.env.OPENSHIFT_APP_NAME);
+    connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
 }
 
 // if(process.env.OPENSHIFT_MONGODB_DB_URL){
