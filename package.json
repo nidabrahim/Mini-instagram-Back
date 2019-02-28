@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/redaBenchraa/InstaBack.git"
+    "url": "git+https://github.com/nidabrahim/InstaBack.git"
   },
   "author": "nida",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/redaBenchraa/InstaBack/issues"
+    "url": "https://github.com/nidabrahim/InstaBack/issues"
   },
-  "homepage": "https://github.com/redaBenchraa/InstaBack#readme",
+  "homepage": "https://github.com/nidabrahim/InstaBack#readme",
   "dependencies": {
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
