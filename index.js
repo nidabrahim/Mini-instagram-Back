@@ -9,7 +9,12 @@ import Routes from "./components"
 import mongoose from "mongoose"
 
 
-const connectionString = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+var connectionString = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
+if(process.env.OPENSHIFT_MONGODB_DB_URL){
+    connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + "db";
+}
+
 mongoose.connect(connectionString);
 mongoose.set('useCreateIndex', true);
 
@@ -29,8 +34,11 @@ app.use(MyLogger)
 
 app.use("/", Routes)
 
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || process.env.APP_PORT
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
-app.listen(process.env.APP_PORT,()=>
-console.log(`Server is listening on port 8080`))
+app.listen(server_port, server_ip_address, ()=>
+    console.log( "Listening on " + server_ip_address + ", port " + server_port )
+)
 
 });
