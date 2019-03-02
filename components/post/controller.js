@@ -1,7 +1,7 @@
 import db from "../../db/db";
 import * as services from "./services";
 
-export function post(req, res){
+export async function post(req, res){
   // if (!req.body.title) {
   //   return res.status(400).send({
   //     message: "title is required "+req.body.title
@@ -13,13 +13,19 @@ export function post(req, res){
   // }
 
   //console.log(req.file);
-  services.createPost(req.body).then(
-    post => res.status(200).json(post),
-    err => {
-      res.status(500).send("error");
-      return;
-    }
-  );
+  // services.createPost(req.body).then(
+  //   post => res.status(200).json(post),
+  //   err => {
+  //     res.status(500).send("error");
+  //     return;
+  //   }
+  // );
+
+  const post = await services.createPost(req.body);
+  res.status(200).send({
+    post: post
+  });
+
 };
 
 export async function list(req, res){

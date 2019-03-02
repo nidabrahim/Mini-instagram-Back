@@ -14,7 +14,7 @@ export async function listByPage(page, per_page) {
 export async function createUser(user) {
       if (user) {
         if (!user._id) {
-          console.log("[user] - Creation");
+          //console.log("[user] - Creation");
           let hash = bcrypt.hashSync(user.password, 10);
           user.password = hash;
           //console.log(user);
@@ -64,8 +64,13 @@ export async function checkUser(email, pwd) {
 
 
 export async function updateUser(id, newUser) {
+  let user = null;
   if (newUser) {
-    console.log("New user : ", newUser);
-    return User.findOneAndUpdate({_id:id}, newUser);
+    user = await User.findOneAndUpdate({_id:id}, newUser, {new : true}).populate({
+      path: "posts",
+      model: "Post"
+    });
   }
+  console.log("Updated User : " + user);
+  return user;
 }

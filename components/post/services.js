@@ -3,28 +3,42 @@ import User from "../user/model";
 
 
 export async function createPost(post) {
-  if (post) {
-    if (!post._id) {
-      Post.create(post).then(function(newPost){
-        User.findOne({_id:post.author._id})
-        .then(function(user){
+  // if (post) {
+  //   if (!post._id) {
+  //     Post.create(post).then(function(newPost){
+  //       User.findOne({_id:post.author._id})
+  //       .then(function(user){
           
-          user.posts.push(newPost);
-          user.save();
-          console.log(user);
-          return newPost;
-        })
-        .catch(err => {
-          console.log("Find User error");
-        });
-      })
-      .catch(err => {
-        console.log("Add post error");
-      });
+  //         user.posts.push(newPost);
+  //         user.save();
+  //         console.log(user);
+  //         return newPost;
+  //       })
+  //       .catch(err => {
+  //         console.log("Find User error");
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log("Add post error");
+  //     });
 
       
+  //   }
+  // }
+  var newPost = null;
+  if (post) {
+    if (!post._id) {
+      newPost = await Post.create(post);
+      if(newPost){
+        const user = await User.findOne({_id:post.author._id});
+        if(user){
+            user.posts.push(newPost);
+            user.save();
+        }
+      }
     }
   }
+  return newPost;
 }
 
 export async function list() {
@@ -56,7 +70,7 @@ export async function listByPage(page, per_page) {
 }
 
 export async function postsByUser(id) {
-  console.log(id);
+  //console.log(id);
   let result = await Post.find({'author.ref':id});
   //console.log(result);
   return result;
@@ -78,7 +92,7 @@ export async function createComment(postId,comment) {
           }
         });
         user.save();
-        console.log(user);
+        //console.log(user);
       }
     }
     return post;
@@ -108,7 +122,7 @@ export async function updateLikes(postId,post) {
         const user = await User.findOne({name:_post.author.name});
         if(user){
           user.posts.map(item => {
-            console.log("cmp : ", item._id.equals(_post._id));
+            //console.log("cmp : ", item._id.equals(_post._id));
             if(item._id == _post._id){
               //console.log("item : ",item._id, " | post : ",_post._id);
               //item = post;
