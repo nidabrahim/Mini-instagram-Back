@@ -46,6 +46,13 @@ export async function getUserById(req, res){
   });
 };
 
+export async function getUser(req, res){
+  const user  = await services.getUser(req.params.id)
+  res.status(200).send({
+      user: user
+  });
+};
+
 export async function login(req, res){
     let { email, password } = req.body;
     const user = await services.checkUser(email, password);

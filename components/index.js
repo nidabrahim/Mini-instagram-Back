@@ -1,3 +1,4 @@
+require ('custom-env').env('prod')
 import express from "express";
 import post from "./post/routes";
 import user from "./user/routes";
@@ -23,9 +24,12 @@ const routes = express.Router();
 routes.post("/api/login", login);
 routes.post("/api/signup", signup);
 
+
 routes.get("/api/image/:id", getPostImage);
 
-routes.use('/api/', verifyJWT_MW);
+if( process.env.NODE_ENV != 'test'){
+  routes.use('/api/', verifyJWT_MW);
+}
 
 routes.use("/api/", post);
 routes.use("/api/", user);

@@ -71,6 +71,5 @@ export async function updateUser(id, newUser) {
       model: "Post"
     });
   }
-  console.log("Updated User : " + user);
   return user;
 }

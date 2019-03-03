@@ -27,7 +27,7 @@ mongoose.set('useCreateIndex', true);
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() { 
+// db.once("open", function() { 
 
 const app = express()
 
@@ -48,4 +48,6 @@ app.listen(server_port, server_ip_address, ()=>
     console.log( "Listening on " + server_ip_address + ", port " + server_port )
 )
 
-});
+// });
+
+module.exports = app; // for testing

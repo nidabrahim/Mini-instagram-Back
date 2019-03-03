@@ -2,15 +2,16 @@ import db from "../../db/db";
 import * as services from "./services";
 
 export async function post(req, res){
-  // if (!req.body.title) {
-  //   return res.status(400).send({
-  //     message: "title is required "+req.body.title
-  //   });
-  // } else if (!req.body.description) {
-  //   return res.status(400).send({
-  //     message: "description is required"
-  //   });
-  // }
+
+  if (!req.body.title) {
+    return res.status(400).send({
+      message: "title is required"
+    });
+  } else if (!req.body.description) {
+    return res.status(400).send({
+      message: "description is required"
+    });
+  }
 
   //console.log(req.file);
   // services.createPost(req.body).then(
