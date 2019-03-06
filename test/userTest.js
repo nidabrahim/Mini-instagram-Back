@@ -1,7 +1,6 @@
 import chai from "chai"
 import chaiHttp from "chai-http"
 import server from "./../index"
-import mongoose from "mongoose"
 import User from "./../components/user/model"
 
 let should = chai.should();

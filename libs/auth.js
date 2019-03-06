@@ -17,11 +17,6 @@ export async function verifyJWTToken(token) {
       
       return user;
 
-      // User.findOne({_id: userId}).then(function(user){
-      //   return user;
-      // });
-
-      //return decodedToken;
     } catch (err) {
       throw new err();
     }

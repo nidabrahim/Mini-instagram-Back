@@ -1,4 +1,4 @@
-import db from "../../db/db";
+
 import * as services from "./services";
 
 export async function post(req, res){
@@ -12,15 +12,6 @@ export async function post(req, res){
       message: "description is required"
     });
   }
-
-  //console.log(req.file);
-  // services.createPost(req.body).then(
-  //   post => res.status(200).json(post),
-  //   err => {
-  //     res.status(500).send("error");
-  //     return;
-  //   }
-  // );
 
   const post = await services.createPost(req.body);
   res.status(200).send({
@@ -55,31 +46,13 @@ export async function addCommentToPost(req, res){
   res.status(200).send({
     post: post
   });
-  // .then(
-  //   post => res.status(200).json(post),
-  //   err => {
-  //     res.status(500).send("error");
-  //     return;
-  //   }
-  // );
 };
 
 export async function updateLikes(req, res){
   const post = await services.updateLikes(req.params.id, req.body);
-  //console.log(post);
   res.status(200).send({
     post: post
   });
-  // .then(
-  //   post => {
-  //     console.log(post);
-  //     res.status(200).json(post);
-  //   },
-  //   err => {
-  //     res.status(500).send("error");
-  //     return;
-  //   }
-  // );
 };
 
 

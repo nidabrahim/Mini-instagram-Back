@@ -6,7 +6,6 @@ export function verifyJWT_MW(req, res, next) {
   verifyJWTToken(token)
     .then(user => {
       req.user = user;
-      //console.log(req.user)
       next();
     })
     .catch(err => {

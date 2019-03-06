@@ -15,10 +15,6 @@ var UserSchema = new Schema({
   description: String,
   password: String,
   posts: [Post.schema]
-  // posts: [{ 
-  //   type: Schema.Types.ObjectId, 
-  //   ref: 'Post' 
-  // }]
 });
 
 UserSchema.index({ name: 1});

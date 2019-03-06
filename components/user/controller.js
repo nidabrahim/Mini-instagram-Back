@@ -32,14 +32,12 @@ export async function list(req, res){
 };
 
 export async function me(req, res){
- // console.log(req.user);
   res.status(200).send({
       user: req.user
   });
 };
 
 export async function getUserById(req, res){
-  //var id = req.params.id;  
   const user  = await services.getUser(req.query.id)
   res.status(200).send({
       user: user
@@ -56,7 +54,6 @@ export async function getUser(req, res){
 export async function login(req, res){
     let { email, password } = req.body;
     const user = await services.checkUser(email, password);
-   // console.log(user);
     if (user != null) {
       res.status(200).json({
         success: true,
@@ -85,11 +82,6 @@ export function signup(req, res){
 };
 
 export async function update(req, res){
-  // if (!req.body.name) {
-  //     return res.status(400).send({
-  //       message: "name is required"
-  //     });
-  // }
   const user = await services.updateUser(req.params.id, req.body);
   res.status(200).send({
     user: user
